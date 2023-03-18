@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    Vector2 SR;
     void Start()
     {
         
@@ -14,5 +15,10 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         
+        SR.x = Input.GetAxisRaw("Horizontal");
+        SR.y = Input.GetAxisRaw("Vertical");
+
+        this.transform.position = this.transform.position + (new Vector3(SR.x,SR.y,0).normalized * 0.01f);
+        print(new Vector3(SR.x, SR.y, 0).normalized);
     }
 }
