@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovementScript : MonoBehaviour
 {
 
     Vector2 SR;
@@ -19,6 +19,5 @@ public class NewBehaviourScript : MonoBehaviour
         SR.y = Input.GetAxisRaw("Vertical");
 
         this.transform.position = this.transform.position + (new Vector3(SR.x,SR.y,0).normalized * 0.01f);
-        print(new Vector3(SR.x, SR.y, 0).normalized);
     }
 }
