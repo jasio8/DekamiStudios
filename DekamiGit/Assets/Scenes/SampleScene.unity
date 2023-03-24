@@ -677,10 +677,12 @@ MonoBehaviour:
   orientation: {fileID: 410137239}
   groundDrag: 5
   speedMultiplier: 5
-  playerHeight: 20.32
+  JumpMultiplier: 2
+  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
+  bob: {fileID: 1698949697}
 --- !u!136 &1698949693
 CapsuleCollider:
   m_ObjectHideFlags: 0

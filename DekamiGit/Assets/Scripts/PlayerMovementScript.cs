@@ -15,13 +15,13 @@ public class PlayerMovementScript : MonoBehaviour
 
     [Header("Movement")]
     public float speedMultiplier = 10f;
-
+    public float JumpMultiplier = 10f;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     bool grounded;
-
+    public HeadBob bob;
 
 
 
@@ -42,20 +42,29 @@ public class PlayerMovementScript : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down,playerHeight *0.5f + 0.2f, whatIsGround);
 
         MyInput();
-
-        if(grounded)
+        bob.Grounded = grounded;
+        if (grounded)
         {
             rb.drag = groundDrag;
         }
         else
         {
-            rb.drag = 0;
+            rb.drag = groundDrag/7;
         }
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if(grounded)
+        {
+            MovePlayer(1);
+        }
+        else
+        {
+            MovePlayer(0.2f);
+        }
+        Jump();
+
     }
 
 
@@ -65,17 +74,31 @@ public class PlayerMovementScript : MonoBehaviour
       verticalInput = Input.GetAxisRaw("Vertical");
     }
 
-    void MovePlayer()
+    void MovePlayer(float S)
     {
         MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rb.AddForce(MoveDirection.normalized * speedMultiplier * 20f);
+            rb.AddForce(MoveDirection.normalized * speedMultiplier * 20f * S);
         }
         else
         {
-            rb.AddForce(MoveDirection.normalized * speedMultiplier * 10f);
+            rb.AddForce(MoveDirection.normalized * speedMultiplier * 10f * S);
         }
 
+
     }
+
+
+    void Jump()
+    {
+        if(grounded&&Input.GetKey(KeyCode.Space))
+        {
+
+            rb.AddForce(Vector3.up * JumpMultiplier,ForceMode.Impulse);
+        }
+        
+    }
+
+    
 }
