@@ -11,7 +11,7 @@ public class PlayerMovementScript : MonoBehaviour
     Vector3 MoveDirection;
     float horizontalInput;
     float verticalInput;
-
+    public bool IsEnabled;
 
     [Header("Movement")]
     public float speedMultiplier = 10f;
@@ -39,7 +39,9 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down,playerHeight *0.5f + 0.2f, whatIsGround);
+    if(IsEnabled)
+    { 
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
         bob.Grounded = grounded;
@@ -49,8 +51,9 @@ public class PlayerMovementScript : MonoBehaviour
         }
         else
         {
-            rb.drag = groundDrag/7;
+            rb.drag = groundDrag / 7;
         }
+    }
     }
 
     void FixedUpdate()
